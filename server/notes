@@ -1,0 +1,19 @@
+sequelize model:create --attributes "firstname:string lastname:string email:string password:string picture:string description:string age:integer" --name User
+
+sequelize model:create --attributes "label:string code:string" --name TypeUser
+
+sequelize model:create --attributes "name:string start:string finish:string kilometers:float elevation:float max_participants:integer description:string UserId:integer" --name Race
+
+
+modeles ajouter un s aux relations ...
+
+
+sequelize db:migrate
+
+
+create unique index user_race_participation on UserRaces ( UserId ,RaceId )
+
+----------------------------------------------------------------------------------
+ps aux | grep node
+kill -9 PID
+kill all node
