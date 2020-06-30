@@ -7,6 +7,7 @@ class RacesController {
         let status = 200;
         let body = [];
         try {
+            console.log(req.userInformation)
             let raceToCreate = {
                 name: req.body.name,
                 start: req.body.start,
@@ -15,7 +16,7 @@ class RacesController {
                 elevation: req.body.elevation,
                 max_participants: req.body.max_participants,
                 description: req.body.description,
-                UserId: req.id
+                UserId: req.userInformation.userId
             };
 
             let raceFound = await db.Race.findOne({
@@ -50,7 +51,7 @@ class RacesController {
                 elevation: req.body.elevation,
                 max_participants: req.body.max_participants,
                 description: req.body.description,
-                UserId: req.id
+                UserId: req.userInformation.userId
             };
 
             let raceFound = await db.Race.findOne({

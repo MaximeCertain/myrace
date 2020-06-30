@@ -1,8 +1,9 @@
 import bcrypt from "bcryptjs"
 import db from '../models/index.js';
 import JwtUtils from "../utils/jwt.utils";
+import BaseController from "./base.controller";
 
-class UserController {
+class UserController extends BaseController {
 
     static async list(req, res) {
     }
@@ -37,13 +38,12 @@ class UserController {
 
 
     static async login(req, res) {
+        console.log("ok")
         let status = 200;
         let body = [];
         try {
             let email = req.body.email;
             let password = req.body.password;
-            console.log(email)
-            console.log(password)
 
             let userFound = await db.User.findOne({
                 where: {email: email},
@@ -74,7 +74,7 @@ class UserController {
         let body = [];
 
         let user = await db.User.findOne({
-            where: {id: req.id}
+            where: {id: req.userInformation.userId}
         })
         if (user) {
             res.status(201).json(user);
@@ -89,7 +89,7 @@ class UserController {
         try {
             let user = await db.User.findOne({
                 where: {id: req.params.id},
-                include:  ["RacesParticipations", "CreatedRaces"]
+                include: ["RacesParticipations", "CreatedRaces"]
             })
             if (user) {
                 status = 201
@@ -121,6 +121,9 @@ class UserController {
     static async update(req, res) {
         let status = 200;
         let body = [];
+        if (!(await BaseController.checkRights( req.userInformation, req.params.id))) {
+            return res.status(403).json({'message': 'dont_have_rights'});
+        }
         try {
             let userToUpdate = {
                 email: req.body.email,
@@ -140,14 +143,14 @@ class UserController {
                 where: {id: req.params.id}
             })
 
-            let race = await db.Race.findOne( {
-                where: {id: 1}
-            })
+            /*    let race = await db.Race.findOne( {
+                    where: {id: 1}
+                })
 
-           await db.UserRaces.create({
-               UserId: req.params.id, RaceId: race.id
-           })
-            console.log(user)
+               await db.UserRaces.create({
+                   UserId: req.params.id, RaceId: race.id
+               })
+                console.log(user)*/
 
             body = {'message': 'user_updated'};
         } catch (e) {

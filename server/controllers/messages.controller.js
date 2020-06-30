@@ -9,7 +9,7 @@ class MessagesController {
         try {
             let messageToCreate = {
                 RaceId: req.body.race_id,
-                UserId: req.id,
+                UserId: req.userInformation.userId,
                 TypeMessageId: req.body.type_message_id,
                 description: req.body.description
             };
@@ -31,7 +31,7 @@ class MessagesController {
         try {
             let messageToUpdate = {
                 RaceId: req.body.race_id,
-                UserId: req.id,
+                UserId: req.userInformation.userId,
                 TypeMessageId: req.body.type_message_id,
                 description: req.body.description
             };

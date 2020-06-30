@@ -1,7 +1,6 @@
 import jwtUtils from "../utils/jwt.utils";
 
 class JwtCheck {
-
     /**
      * Middleware de vérification du jeton jwt de l'utilsateur
      * @param req
@@ -11,14 +10,13 @@ class JwtCheck {
      */
     static async check(req, res, next) {
         let headerAuth = req.headers['authorization'];
-        console.log(headerAuth);
-        let userId = await jwtUtils.getUserId(headerAuth);
+        let userInformation = await jwtUtils.getUserInformation(headerAuth);
 
-        if (userId < 0){
+        if (userInformation.userId < 0){
             return res.status(401).json({'error': 'Invalid API Authentication'})
         }
-        //   res.status(200).json({'userId': 'user found'})
-        req.id = userId;
+        req.userInformation = userInformation;
+
         next()
     };
 }
