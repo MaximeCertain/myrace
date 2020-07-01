@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
-import {StyleSheet, TextInput, View, Button, Text, TouchableHighlight, Animated} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import UsersService from "../services/api/users.service";
-import {useForm} from 'react-hook-form';
-import {Formik, Field, Form, ErrorMessage} from 'formik';
+import {Formik} from 'formik';
 import LoginSchema from "../forms/validators/login.validator";
 import logo from "../assets/logo.png";
+import mailLogo from "../assets/mail.png";
+import passwordLogo from "../assets/password.png";
+import UserInput from "../components/form-elements/UserInput";
+import Title from "../components/default-elements/Title";
+import SubmitButton from "../components/form-elements/SubmitButton";
+import {connect} from "react-redux";
+import {login} from "../actions/users.actions";
+
 
 class Login extends Component {
 
@@ -13,10 +20,8 @@ class Login extends Component {
         try {
             if (response.ok) {
                 let data = await response.json();
+                this.props.changeToken(data.token);
                 this.props.navigation.navigate('Home');
-                console.log(data)
-            } else {
-                console.log("fail")
             }
         } catch (e) {
             console.log(e.message)
@@ -24,43 +29,25 @@ class Login extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <View style={styles.container}>
-                <Animated.Image style={styles.image}
-                    source={logo}/>
+                <View style={styles.header}>
+                    <Image source={logo}/>
+                    <Title title={"My Race"}/>
+                </View>
                 <Formik
                     initialValues={{email: '', password: ''}}
                     onSubmit={values => this.log(values)}
                     validationSchema={LoginSchema}>
                     {({handleChange, values, handleSubmit, errors}) => (
                         <View>
-                            <TextInput
-                                style={styles.input}
-                                name='email'
-                                value={values.email}
-                                onChangeText={handleChange('email')}
-                                placeholder='Adresse email'
-                                autoCapitalize='none'
-                            />
-                            <Text style={{color: 'red'}}>{errors.email}</Text>
-                            <TextInput
-                                style={styles.input}
-                                name='password'
-                                value={values.password}
-                                onChangeText={handleChange('password')}
-                                placeholder='Mot de passe'
-                                secureTextEntry
-                            />
-                            <Text style={{color: 'red'}}>{errors.email}</Text>
-                            <View>
-                                <Button
-                                    style={styles.input}
-                                    buttonType='outline'
-                                    onPress={handleSubmit}
-                                    title='LOGIN'
-                                    buttonColor='#039BE5'
-                                />
-                            </View>
+                            <UserInput errors={errors.email} source={mailLogo} name={"email"} value={values.email}
+                                       placeholder={'Adresse email'} onChangeText={handleChange('email')}/>
+                            <UserInput errors={errors.password} source={passwordLogo} name={"password"}
+                                       value={values.password} placeholder={'Mot de passe'}
+                                       onChangeText={handleChange('password')} secureTextEntry={true}/>
+                            <SubmitButton title={"Se connecter"} onPress={handleSubmit}/>
                         </View>
                     )
                     }
@@ -71,22 +58,31 @@ class Login extends Component {
 }
 
 const styles = StyleSheet.create({
-    image:{
-      marginBottom: 50
-    },
     container: {
         flex: 1,
-        paddingHorizontal: 10,
+        flexDirection: "column",
+        textAlign: "center",
         justifyContent: "center",
-        alignItems: "center",
         backgroundColor: "#eceaea"
     },
-    input: {
-        width: "100%",
-        fontSize: 26,
-        marginBottom: 20,
-        marginHorizontal: 20,
-        borderRadius: 10
+    header: {
+        alignItems: "center"
     }
 })
-export default Login
+
+const mapDispatchToProps = dispatch => {
+    return {
+        changeToken: (token) => {
+            dispatch(login(token))
+        }
+    }
+}
+
+
+//avec cette fonction, le composant s'abonne aux changements choisis du store redux
+const mapStateToProps = (state) => {
+    //je ne veux recupérer qu'une partie du store
+    return {token: state.login.token}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
