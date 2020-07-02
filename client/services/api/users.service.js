@@ -1,6 +1,7 @@
 import ConfigApi from "./config";
 
 class UsersService extends ConfigApi {
+
     static async login(body) {
         let init = {
             method: "POST",
@@ -13,6 +14,7 @@ class UsersService extends ConfigApi {
 
         return call;
     }
+
 }
 
 export default UsersService

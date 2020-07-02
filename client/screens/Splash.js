@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button, Animated} from 'react-native';
+import {StyleSheet, Text, View, Button, Animated, ActivityIndicator} from 'react-native';
 import logo from '../assets/logo.png'
+import {connect} from "react-redux";
 
 class Splash extends Component {
 
@@ -16,10 +17,11 @@ class Splash extends Component {
     }
 
     fadeInAnimation = () => {
+        let {token} = this.props
         Animated.timing(this.state.fadeIn, {
             toValue: 1,
-            duration: 2000
-        }).start(() => this.props.navigation.navigate('Login')
+            duration: 1000
+        }).start(() => this.props.navigation.navigate(token != null ? 'Home' : 'Login')
          );
     }
 
@@ -27,6 +29,7 @@ class Splash extends Component {
         let {fadeIn} = this.state;
         return (
             <View style={styles.container}>
+                <ActivityIndicator size={"large"} color={"red"} animated={true}/>
                 <Animated.Image
                     style={{opacity: fadeIn}}
                     source={logo}/>
@@ -44,4 +47,12 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Splash
+//avec cette fonction, le composant s'abonne aux changements choisis du store redux
+const mapStateToProps = (state) => {
+    //je ne veux recupérer qu'une partie du store
+    return {
+        token: state.login.token
+    }
+}
+
+export default connect(mapStateToProps, null)(Splash)

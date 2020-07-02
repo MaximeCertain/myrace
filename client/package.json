@@ -8,11 +8,14 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/native": "^5.6.1",
     "@react-navigation/stack": "^5.6.2",
     "expo": "~38.0.1",
     "expo-status-bar": "^1.0.0",
+    "jwt-decode": "^2.2.0",
+    "moment": "^2.27.0",
     "react": "~16.11.0",
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.0.tar.gz",
@@ -25,6 +28,8 @@
     "react-navigation-stack": "^2.8.2",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
     "tcomb-form-native": "^0.6.20",
     "yup": "^0.29.1"
   },

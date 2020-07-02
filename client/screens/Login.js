@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image, ActivityIndicator} from 'react-native';
 import UsersService from "../services/api/users.service";
 import {Formik} from 'formik';
 import LoginSchema from "../forms/validators/login.validator";
@@ -11,9 +11,16 @@ import Title from "../components/default-elements/Title";
 import SubmitButton from "../components/form-elements/SubmitButton";
 import {connect} from "react-redux";
 import {login} from "../actions/users.actions";
+import Text from "react-native-web/dist/exports/Text";
 
 
 class Login extends Component {
+
+ /*   componentDidMount() {
+        if (this.props.token != null) {
+            //this.props.navigation.navigate('Home');
+        }
+    }*/
 
     async log(values) {
         let response = await UsersService.login(values);
@@ -29,13 +36,13 @@ class Login extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image source={logo}/>
+                    <Image source={logo}   resizeMode={"cover"}  />
                     <Title title={"My Race"}/>
                 </View>
+
                 <Formik
                     initialValues={{email: '', password: ''}}
                     onSubmit={values => this.log(values)}
@@ -70,6 +77,7 @@ const styles = StyleSheet.create({
     }
 })
 
+//dispactcher ces evenements
 const mapDispatchToProps = dispatch => {
     return {
         changeToken: (token) => {
@@ -82,7 +90,9 @@ const mapDispatchToProps = dispatch => {
 //avec cette fonction, le composant s'abonne aux changements choisis du store redux
 const mapStateToProps = (state) => {
     //je ne veux recupérer qu'une partie du store
-    return {token: state.login.token}
+    return {
+        token: state.login.token
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

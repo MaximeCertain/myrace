@@ -1,0 +1,3 @@
+binder une fonciton = prndre le contexte de l'element voulu pour le this
+
+fonciton flechee est bindée automatiquement

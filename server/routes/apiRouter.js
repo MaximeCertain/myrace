@@ -18,6 +18,7 @@ router.put('/users/:id', JwtCheck.check, userController.update);
 router.delete('/users/:id', JwtCheck.check, userController.delete);
 
 router.post('/races', JwtCheck.check, RacesController.create);
+router.get('/races', JwtCheck.check, RacesController.list);
 router.put('/races/:id', JwtCheck.check, RacesController.update);
 router.get('/races/:id', JwtCheck.check, RacesController.details);
 

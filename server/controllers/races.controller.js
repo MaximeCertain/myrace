@@ -89,10 +89,10 @@ class RacesController {
         try {
             let race = await db.Race.findOne({
                 where: {id: req.params.id},
-                include:  [db.User, "Runners", {
+                include: [db.User, "Runners", {
                     model: db.Message,
-                    as : "Messages",
-                    include:[{
+                    as: "Messages",
+                    include: [{
                         model: db.User
                     }]
                 }]
@@ -110,7 +110,25 @@ class RacesController {
         return res.status(status).json(body);
     }
 
-
+    static async list(req, res) {
+        let status = 200;
+        let body = [];
+        try {
+            let races = await db.Race.findAll({
+                include: [db.User, "Runners", {
+                    model: db.Message,
+                    as: "Messages",
+                    include: [{
+                        model: db.User
+                    }]
+                }]
+            })
+            body = {'races': races, 'message': 'list of races'};
+        } catch (e) {
+            console.log(e.message)
+        }
+        return res.status(status).json(body);
+    }
 }
 
 export default RacesController
