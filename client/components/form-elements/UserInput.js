@@ -4,14 +4,17 @@ import {StyleSheet, View, Image, TextInput, Text} from 'react-native'
 class UserInput extends Component {
 
     render() {
-        let {errors, source, name, secureTextEntry, autoCorrect, autoCapitalize, onChangeText, returnKeyType, placeholder} = this.props
+        let {errors, source, name, secureTextEntry, autoCorrect, autoCapitalize, onChangeText, returnKeyType, placeholder, defaultValue, keyboardType, multiline} = this.props
         return (
             <View style={styles.container}>
                 <View style={styles.inputWrapper}>
                     <Image source={source} style={styles.image}/>
-                    <TextInput style={styles.input}
+                    <TextInput style={[styles.input, multiline && styles.textarea]}
                                name={name}
+                               defaultValue={defaultValue}
                                secureTextEntry={secureTextEntry}
+                               keyboardType={keyboardType}
+                               multiline={multiline}
                                autoCorrect={autoCorrect}
                                autoCapitalize={autoCapitalize}
                                onChangeText={onChangeText}
@@ -22,7 +25,7 @@ class UserInput extends Component {
                     </TextInput>
                 </View>
 
-                {errors &&  <Text style={styles.errors}>{this.props.errors}</Text>}
+                {errors && <Text style={styles.errors}>{this.props.errors}</Text>}
 
             </View>
         )
@@ -55,9 +58,12 @@ const styles = StyleSheet.create({
         top: 9,
     },
     errors: {
-        marginVertical:5,
+        marginVertical: 5,
         marginHorizontal: 30,
         color: 'red'
+    },
+    textarea: {
+        height: 150
     }
 });
 

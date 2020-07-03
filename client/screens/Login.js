@@ -12,22 +12,26 @@ import SubmitButton from "../components/form-elements/SubmitButton";
 import {connect} from "react-redux";
 import {login} from "../actions/users.actions";
 import Text from "react-native-web/dist/exports/Text";
+import NavigateButton from "../components/default-elements/NavigateButton";
 
 
 class Login extends Component {
 
- /*   componentDidMount() {
-        if (this.props.token != null) {
-            //this.props.navigation.navigate('Home');
-        }
-    }*/
+    constructor(props) {
+        super(props);
+    }
+    /*   componentDidMount() {
+           if (this.props.token != null) {
+               //this.props.navigation.navigate('Home');
+           }
+       }*/
 
     async log(values) {
         let response = await UsersService.login(values);
         try {
             if (response.ok) {
                 let data = await response.json();
-                this.props.changeToken(data.token);
+                this.props.changeToken(data);
                 this.props.navigation.navigate('Home');
             }
         } catch (e) {
@@ -35,14 +39,17 @@ class Login extends Component {
         }
     }
 
+    register() {
+        this.props.navigation.navigate('Register');
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Image source={logo}   resizeMode={"cover"}  />
+                    <Image source={logo} resizeMode={"cover"}/>
                     <Title title={"My Race"}/>
                 </View>
-
                 <Formik
                     initialValues={{email: '', password: ''}}
                     onSubmit={values => this.log(values)}
@@ -59,6 +66,9 @@ class Login extends Component {
                     )
                     }
                 </Formik>
+                <View style={styles.register}>
+                    <NavigateButton title={"S'inscrire"} onPress={() => this.register() }/>
+                </View>
             </View>
         )
     }
@@ -74,14 +84,17 @@ const styles = StyleSheet.create({
     },
     header: {
         alignItems: "center"
+    },
+    register: {
+        marginVertical: 10
     }
 })
 
 //dispactcher ces evenements
 const mapDispatchToProps = dispatch => {
     return {
-        changeToken: (token) => {
-            dispatch(login(token))
+        changeToken: (data) => {
+            dispatch(login(data))
         }
     }
 }

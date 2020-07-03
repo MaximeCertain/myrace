@@ -11,14 +11,13 @@ class UserController extends BaseController {
     static async register(req, res) {
         let user = {
             email: req.body.email,
-            lastname: req.body.email,
-            firstname: req.body.email,
-            description: req.body.description,
-            age: req.body.age,
+            lastname: req.body.lastname || null,
+            firstname: req.body.firstname || null,
+            description: req.body.description || null,
+            age: req.body.age || null,
             password: req.body.password,
             TypeUserId: 1
         }
-
         let userFound = await db.User.findOne({
             where: {email: user.email}
         })
@@ -32,7 +31,7 @@ class UserController extends BaseController {
 
         let newUser = await db.User.create(user);
         return res.status(201).json({
-            'userId': newUser.id
+            'user': newUser
         })
     }
 
@@ -52,15 +51,17 @@ class UserController extends BaseController {
                     required: true
                 }]
             });
-            let matchPassword = (await bcrypt.compare(password, userFound.password));
-            if (matchPassword) {
-                body = {
-                    'userId': userFound.id,
-                    'token': await JwtUtils.generateTokenForUser(userFound),
-                    'message': "login_succesfull"
-                };
-            } else {
-                body = {'message': "wrong_password_or_email"};
+            if (userFound) {
+                let matchPassword = (await bcrypt.compare(password, userFound.password));
+                if (matchPassword) {
+                    body = {
+                        'user': userFound,
+                        'token': await JwtUtils.generateTokenForUser(userFound),
+                        'message': "login_succesfull"
+                    };
+                } else {
+                    body = {'message': "wrong_password_or_email"};
+                }
             }
         } catch (e) {
             status = 500;
@@ -121,23 +122,22 @@ class UserController extends BaseController {
     static async update(req, res) {
         let status = 200;
         let body = [];
-        if (!(await BaseController.checkRights( req.userInformation, req.params.id))) {
+        if (!(await BaseController.checkRights(req.userInformation, req.params.id))) {
             return res.status(403).json({'message': 'dont_have_rights'});
         }
         try {
             let userToUpdate = {
                 email: req.body.email,
-                password: req.body.password,
                 lastname: req.body.lastname,
                 firstname: req.body.firstname,
                 age: req.body.age,
-                description: req.body.description,
-                picture: req.body.picture,
-                TypeUserId: req.body.TypeUserId
+                description: req.body.description
             };
 
-            const salt = await bcrypt.genSalt(10);
-            userToUpdate.password = await bcrypt.hash(userToUpdate.password, salt);
+            /*if (req.body.password) {
+                const salt = await bcrypt.genSalt(10);
+                userToUpdate.password = await bcrypt.hash(userToUpdate.password, salt);
+            }*/
 
             let user = await db.User.update(userToUpdate, {
                 where: {id: req.params.id}

@@ -1,5 +1,3 @@
-import {requestRaces, requestRacesError, requestRacesSuccess} from '../../actions/races.action';
-import RacesService from "./races.service";
 
 function fetchRaces() {
     return dispatch => {

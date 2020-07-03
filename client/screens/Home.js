@@ -4,11 +4,12 @@ import RacesService from "../services/api/races.service";
 import {login} from "../actions/users.actions";
 import {connect} from "react-redux";
 import {bindActionCreators} from 'redux';
-import fetchRaces from '../services/api/fetchRaces'
+import {fetchRaces} from '../store/dispatchers/races.dispatcher'
 import RaceItem from "../components/race/RaceItem";
 import Title from "../components/default-elements/Title";
 import filter from "../assets/filter.png"
 import Image from "react-native-web/src/exports/Image";
+import ActivityIndicator from "react-native-web/dist/exports/ActivityIndicator";
 
 class Home extends Component {
     constructor(props) {
@@ -18,25 +19,15 @@ class Home extends Component {
         }
     }
 
-    /* componentWillMount() {
-         const {fetchRaces} = this.props;
-         fetchRaces();
-     }*/
-
     async componentDidMount() {
-        let response = await RacesService.list()
-
-        let races = response;
-        this.setState({
-            races
-        })
+        await this.props.getRaces()
     }
 
-
     render() {
-
-        let {navigation} = this.props;
-        let {races} = this.state;
+        let {navigation, error, loading, races} = this.props;
+        if(loading){
+            return (<ActivityIndicator/>)
+        }
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.header}>
@@ -51,9 +42,7 @@ class Home extends Component {
                                   data={item}/>}/>
             </ScrollView>
         )
-
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -68,22 +57,19 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapDispatchToProps = dispatch => {
+    return {
+        getRaces: () => {
+            dispatch(fetchRaces())
+        }
+    }
+}
 
-/*const mapDispatchToProps = dispatch => {
-    return { fetchRaces: () => dispatch(fetchRaces()) } //note the dispatch call
-}*
-//dispactcher ces evenements
-
-import {getRaces, getRacesErrors, getRacesLoading} from '../store/reducers/races.reducers';
 const mapStateToProps = state => ({
-    error: getRacesErrors(state),
-    races: getRaces(state),
-    loading: getRacesLoading(state)
+    error: state.race.error,
+    loading: state.race.loading,
+    races: state.race.races
 })
 
-//avec cette fonction, le composant s'abonne aux changements choisis du store redux
-
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
-*/
 
-export default Home

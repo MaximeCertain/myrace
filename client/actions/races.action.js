@@ -1,14 +1,15 @@
-export const requestRaces = () => ({
-    type: "REQUEST_RACES",
+export const fetchRacesBegin = () => ({
+    type: "FETCH_RACES_BEGIN",
     loading: true,
 })
-export const requestRacesSuccess = (races) => ({
-    type: "REQUEST_RACES_SUCCESS",
-    races,
-    loading: false,
+export const fetchRacesSuccess = (races) => ({
+    type: "FETCH_RACES_SUCCESS",
+    payload: {races},
+    loading: false
+
 })
-export const requestRacesError = (error) => ({
-    type: "REQUEST_RACES_ERROR",
+export const fetchRacesFailure = (error) => ({
+    type: "FETCH_RACES_FAILURE",
     loading: false,
-    error,
+    payload: {error}
 })

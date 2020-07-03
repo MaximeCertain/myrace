@@ -1,53 +1,24 @@
-import { AsyncStorage } from 'react-native';
-
-export const login = (token) => {
+export const login = (data) => {
+    //contient token ET user
     return{
         type: "LOGIN",
-        token: token
+        data: data
     }
 }
+export const fetchEditUserBegin = () => ({
+    type: "FETCH_EDIT_PROFILE_BEGINS",
+    loading: true,
+})
+export const fetchEditUserSuccess = (user) => ({
+    type: "FETCH_EDIT_PROFILE_SUCCESS",
+    payload: {user},
+    loading: false
 
-/*export const loading = bool => ({
-    type: 'LOADING',
-    isLoading: bool,
-});
-
-export const error = error => ({
-    type: 'ERROR',
-    error,
-});*/
-
-/*export const getUserToken = () => dispatch =>
-    AsyncStorage.getItem('token')
-        .then((data) => {
-            dispatch(loading(false));
-            dispatch(login(data));
-        })
-        .catch((err) => {
-            dispatch(loading(false));
-            dispatch(error(err.message || 'ERROR'));
-        })*/
+})
+export const fetchEditUserFailure = (error) => ({
+    type: "FETCH_EDIT_PROFILE_FAILURE",
+    loading: false,
+    payload: {error}
+})
 
 
-
-/*export const saveUserToken = (data) => dispatch =>
-    AsyncStorage.setItem('userToken', 'abc')
-        .then((data) => {
-            dispatch(loading(false));
-            dispatch(saveToken('token saved'));
-        })
-        .catch((err) => {
-            dispatch(loading(false));
-            dispatch(error(err.message || 'ERROR'));
-        })
-
-export const removeUserToken = () => dispatch =>
-    AsyncStorage.removeItem('userToken')
-        .then((data) => {
-            dispatch(loading(false));
-            dispatch(removeToken(data));
-        })
-        .catch((err) => {
-            dispatch(loading(false));
-            dispatch(error(err.message || 'ERROR'));
-        })*/

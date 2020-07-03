@@ -1,7 +1,6 @@
 import ConfigApi from "./config";
 import {store} from '../../store/configureStore'
 class RacesService extends ConfigApi {
-
     static async list() {
         let init = {
             method: "GET",
