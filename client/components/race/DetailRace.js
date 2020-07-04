@@ -8,6 +8,7 @@ import DescriptionDeployment from "../default-elements/DescriptionDeployment";
 import {fetchRaces, fetchRegisterRace} from "../../store/dispatchers/races.dispatcher";
 import {connect} from "react-redux";
 import MessagesRace from "./MessagesRace";
+import Helpers from "../../helpers/Helpers";
 
 class DetailRace extends Component {
     //cloic btn => dispatcher, load API puis refresh state redirect inscriptions si inscrition sinon reste ici
@@ -17,6 +18,16 @@ class DetailRace extends Component {
             data: this.props.navigation.state.params.data,
             isRegister: false
         }
+    }
+    //est on inscrit à cette course ?
+    componentDidMount() {
+        this.state.data.Runners.map(r => {
+            if (r.id === this.props.user.id) {
+                this.setState({
+                    isRegister: true
+                })
+            }
+        })
     }
 
     async register() {
@@ -29,6 +40,7 @@ class DetailRace extends Component {
     render() {
         let {kilometers, name, Runners, createdAt, max_participants, elevation, description, id, Messages} = this.state.data
         let {isRegister} = this.state
+
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.header}>
@@ -48,7 +60,6 @@ class DetailRace extends Component {
 
                 {!isRegister ? <SubmitButton title={"M'inscrire à cette course"} onPress={() => this.register()}/> :
                     <MessagesRace raceId={id} messages={Messages}/>}
-
             </ScrollView>
         )
     }
@@ -92,6 +103,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => ({
     error: state.race.error,
     loading: state.race.loading,
+    user: state.login.user
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailRace)

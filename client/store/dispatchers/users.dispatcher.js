@@ -5,8 +5,8 @@ export function fetchEditUser(user) {
     return async dispatch => {
         try {
             dispatch(fetchEditUserBegin());
-           (await UsersService.update(user))
-           dispatch(fetchEditUserSuccess(user));
+            (await UsersService.update(user))
+            dispatch(fetchEditUserSuccess(user));
         } catch (e) {
             dispatch(fetchEditUserFailure(e));
         }

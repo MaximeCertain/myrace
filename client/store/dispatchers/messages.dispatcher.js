@@ -7,7 +7,7 @@ export function fetchSendMessage(body, raceId) {
         try {
             //   dispatch(fetchEditUserBegin());
             let message = (await MessagesService.create(body, raceId))
-            console.log(dispatch(fetchMessageFormSuccess(message)));
+            await (dispatch(fetchMessageFormSuccess(message)));
             if(message){
                 console.log(message)
             }
