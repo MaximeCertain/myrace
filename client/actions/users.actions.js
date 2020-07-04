@@ -1,7 +1,12 @@
 export const login = (data) => {
-    //contient token ET user
     return{
         type: "LOGIN",
+        data: data
+    }
+}
+export const logout = (data) => {
+    return{
+        type: "LOGOUT",
         data: data
     }
 }

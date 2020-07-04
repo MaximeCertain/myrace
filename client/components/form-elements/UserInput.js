@@ -11,6 +11,7 @@ class UserInput extends Component {
                     <Image source={source} style={styles.image}/>
                     <TextInput style={[styles.input, multiline && styles.textarea]}
                                name={name}
+                               type={"datetime"}
                                defaultValue={defaultValue}
                                secureTextEntry={secureTextEntry}
                                keyboardType={keyboardType}

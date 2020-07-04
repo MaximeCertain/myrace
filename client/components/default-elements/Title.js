@@ -5,7 +5,7 @@ class Title extends Component {
     render() {
         let {title} = this.props
         return (
-            <Text style={styles.title}>{title}</Text>
+            <Text style={[styles.title, this.props.color]}>{title}</Text>
         );
     }
 }
@@ -15,7 +15,7 @@ export default Title
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 28, color: '#000', fontWeight: 'bold',
+        fontSize: 28, color: '#b13333', fontWeight: 'bold',
         marginBottom: 20, marginLeft: 10, fontFamily: "normal"
     }
 })

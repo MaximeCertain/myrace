@@ -5,8 +5,12 @@ import Title from "../default-elements/Title";
 import TextVignet from "../default-elements/TextVignet";
 import SubmitButton from "../form-elements/SubmitButton";
 import DescriptionDeployment from "../default-elements/DescriptionDeployment";
+import {fetchRaces, fetchRegisterRace} from "../../store/dispatchers/races.dispatcher";
+import {connect} from "react-redux";
+import MessagesRace from "./MessagesRace";
 
 class DetailRace extends Component {
+    //cloic btn => dispatcher, load API puis refresh state redirect inscriptions si inscrition sinon reste ici
     constructor(props) {
         super(props);
         this.state = {
@@ -15,15 +19,16 @@ class DetailRace extends Component {
         }
     }
 
-    registerRace = () => {
+    async register() {
+        await this.props.registerRace(this.state.data.id)
         this.setState({
             isRegister: true
         })
     }
 
     render() {
-        let {kilometers, name, Runners, createdAt, max_participants, elevation, description, id} = this.state.data
-        let {short_description, isRegister} = this.state
+        let {kilometers, name, Runners, createdAt, max_participants, elevation, description, id, Messages} = this.state.data
+        let {isRegister} = this.state
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.header}>
@@ -40,7 +45,10 @@ class DetailRace extends Component {
                 <View style={styles.description}>
                     <DescriptionDeployment description={description}/>
                 </View>
-                {!isRegister && <SubmitButton title={"M'inscrire à cette course"} onPress={this.registerRace}/>}
+
+                {!isRegister ? <SubmitButton title={"M'inscrire à cette course"} onPress={() => this.register()}/> :
+                    <MessagesRace raceId={id} messages={Messages}/>}
+
             </ScrollView>
         )
     }
@@ -73,4 +81,17 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DetailRace
+const mapDispatchToProps = dispatch => {
+    return {
+        registerRace: (raceId) => {
+            dispatch(fetchRegisterRace(raceId))
+        }
+    }
+}
+
+const mapStateToProps = state => ({
+    error: state.race.error,
+    loading: state.race.loading,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailRace)

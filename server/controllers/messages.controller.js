@@ -8,12 +8,11 @@ class MessagesController {
         let body = [];
         try {
             let messageToCreate = {
-                RaceId: req.body.race_id,
+                RaceId: req.params.race_id,
                 UserId: req.userInformation.userId,
-                TypeMessageId: req.body.type_message_id,
+                TypeMessageId: req.params.type_message_id,
                 description: req.body.description
             };
-            console.log(messageToCreate);
 
             let message = await db.Message.create(messageToCreate);
 

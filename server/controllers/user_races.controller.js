@@ -7,16 +7,15 @@ class UserRacesController {
         let body = [];
         try {
             let userRaceToCreate = {
-                UserId: req.body.userId,
-                RaceId: req.body.raceId
+                UserId: req.userInformation.userId,
+                RaceId: req.params.raceId
             }
-         ///   let userRace = await db.UserRaces.create(userRaceToCreate)
 
             let userRace = await db.UserRaces.create({
-                UserId: req.body.userId, RaceId: req.body.raceId
+                UserId: req.userInformation.userId, RaceId: req.params.raceId
             })
-            body = {'userRace': userRace, 'message': 'created participation'};
 
+            body = {'userRace': userRace, 'message': 'created participation'};
         } catch (e) {
             body = {'error': e.message};
 

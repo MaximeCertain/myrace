@@ -37,15 +37,14 @@ class JwtUtils {
      */
     static async getUserInformation(authorization) {
         let infosUser = {
-            isAdmin : -1,
-            userId :-1
+            isAdmin: -1,
+            userId: -1
         }
-        let userId = -1;
-        let isAdmin = -1;
         let token = await this.parseAuthorization(authorization);
         if (token != null) {
             try {
                 let jwtToken = jwt.verify(token, JWT_SIGN_SECRET);
+                console.log(jwtToken)
                 if (jwtToken != null) {
                     infosUser.userId = jwtToken.userId;
                     infosUser.isAdmin = jwtToken.isAdmin;

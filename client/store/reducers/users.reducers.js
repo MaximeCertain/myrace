@@ -9,6 +9,9 @@ const login= (state = initialState, action) => {
                 user: action.data.user,
                 token: action.data.token
             }
+        case 'LOGOUT':
+            return initialState
+
         case "FETCH_EDIT_PROFILE_BEGINS":
             return {
                 ...state,

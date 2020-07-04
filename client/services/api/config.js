@@ -4,7 +4,7 @@ class ConfigApi{
     }
 
     static baseUrl() {
-        return this.baseUrl;
+        return 'http://localhost:8080/api/';
     }
 }
 

@@ -10,21 +10,18 @@ import UserInput from "../components/form-elements/UserInput";
 import Title from "../components/default-elements/Title";
 import SubmitButton from "../components/form-elements/SubmitButton";
 import {connect} from "react-redux";
-import {login} from "../actions/users.actions";
-import Text from "react-native-web/dist/exports/Text";
+import {login, logout} from "../actions/users.actions";
 import NavigateButton from "../components/default-elements/NavigateButton";
-
 
 class Login extends Component {
 
     constructor(props) {
         super(props);
     }
-    /*   componentDidMount() {
-           if (this.props.token != null) {
-               //this.props.navigation.navigate('Home');
-           }
-       }*/
+
+    componentWillMount() {
+        this.props.logout()
+    }
 
     async log(values) {
         let response = await UsersService.login(values);
@@ -67,7 +64,7 @@ class Login extends Component {
                     }
                 </Formik>
                 <View style={styles.register}>
-                    <NavigateButton title={"S'inscrire"} onPress={() => this.register() }/>
+                    <NavigateButton title={"S'inscrire"} onPress={() => this.register()}/>
                 </View>
             </View>
         )
@@ -95,6 +92,9 @@ const mapDispatchToProps = dispatch => {
     return {
         changeToken: (data) => {
             dispatch(login(data))
+        },
+        logout: () => {
+            dispatch(logout())
         }
     }
 }

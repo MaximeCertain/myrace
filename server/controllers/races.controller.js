@@ -7,7 +7,6 @@ class RacesController {
         let status = 200;
         let body = [];
         try {
-            console.log(req.userInformation)
             let raceToCreate = {
                 name: req.body.name,
                 start: req.body.start,
@@ -18,7 +17,7 @@ class RacesController {
                 description: req.body.description,
                 UserId: req.userInformation.userId
             };
-
+            console.log(raceToCreate)
             let raceFound = await db.Race.findOne({
                 where: {name: raceToCreate.name}
             })
@@ -27,16 +26,23 @@ class RacesController {
                 return res.status(409).json({'error': 'race already exist'})
             }
 
-
             let race = await db.Race.create(raceToCreate);
+            race =  await db.Race.findOne({
+                where: {id: race.id},
+                include: [db.User, "Runners", {
+                    model: db.Message,
+                    as: "Messages",
+                    include: [{
+                        model: db.User
+                    }]
+                }]
+            })
             body = {"race": race, 'message': "race_created"};
         } catch (e) {
             status = 500;
             body = {'message': e.message};
         }
         return res.status(status).json(body);
-
-
     }
 
     static async update(req, res) {

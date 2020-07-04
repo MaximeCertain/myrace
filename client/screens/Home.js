@@ -1,15 +1,11 @@
 import React, {Component} from 'react'
 import {View, Text, FlatList, ScrollView, StyleSheet} from 'react-native'
-import RacesService from "../services/api/races.service";
-import {login} from "../actions/users.actions";
 import {connect} from "react-redux";
-import {bindActionCreators} from 'redux';
 import {fetchRaces} from '../store/dispatchers/races.dispatcher'
 import RaceItem from "../components/race/RaceItem";
 import Title from "../components/default-elements/Title";
-import filter from "../assets/filter.png"
-import Image from "react-native-web/src/exports/Image";
 import ActivityIndicator from "react-native-web/dist/exports/ActivityIndicator";
+import CssHelper from "../helpers/CssHelper";
 
 class Home extends Component {
     constructor(props) {
@@ -25,13 +21,14 @@ class Home extends Component {
 
     render() {
         let {navigation, error, loading, races} = this.props;
-        if(loading){
+        if (loading) {
             return (<ActivityIndicator/>)
         }
+        let color = CssHelper.randomColor()
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.header}>
-                    <Title title={"Prochaines courses"}/>
+                    <Title color={color} title={"Prochaines courses"}/>
                 </View>
                 {races === null && <Title title={'null'}/>}
                 <FlatList
@@ -39,6 +36,7 @@ class Home extends Component {
                     keyExtractor={item => item.id}
                     renderItem={({item}) =>
                         <RaceItem navigation={navigation}
+                                  color={color}
                                   data={item}/>}/>
             </ScrollView>
         )

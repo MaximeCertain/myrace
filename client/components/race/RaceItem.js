@@ -7,10 +7,20 @@ import mountains from "../../assets/mountain.png";
 import Title from "../default-elements/Title";
 import IconLabel from "../default-elements/IconLabel";
 import Helpers from "../../helpers/Helpers";
+import CssHelper from "../../helpers/CssHelper";
 
 class RaceItem extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            type: "default"
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
+            type: this.props.type
+        })
     }
 
     details() {
@@ -24,19 +34,23 @@ class RaceItem extends Component {
 
 
     render() {
-        let {kilometers, name, Runners, createdAt, max_participants, elevation} = this.props.data
-
+        let {kilometers, name, Runners, createdAt, max_participants, elevation, date} = this.props.data
+        let {color} = this.props
+        let isRegisteredScreen = this.props.type === "register"
         return (
             <TouchableOpacity onPress={() => this.details()}>
                 <View style={styles.container}>
-                    <Text style={styles.title}>{name}</Text>
-                    <View style={styles.informations}>
-                        <Text style={styles.infoLabel}>{`${kilometers} km `} </Text>
-                        <Text style={styles.infoLabel}>{Helpers.getDate(createdAt)}</Text>
+                    <Text style={[styles.title, color]}>{name} </Text>
+                    <View style={[styles.informations, color]}>
+                        <Text style={color}>{`${kilometers} km `} </Text>
+                        <Text
+                            style={color}>{this.state.type === "register" ? Helpers.extractDurationDate(date) : Helpers.getDate(date)} </Text>
+
                     </View>
+
                     <View style={styles.informations}>
-                        <IconLabel source={runner} label={`${Runners.length} / ${max_participants}`}/>
-                        <IconLabel source={mountains} label={`${elevation}m`}/>
+                        <IconLabel color={color} source={runner} label={`${Runners && Runners.length} / ${max_participants}`}/>
+                        <IconLabel color={color} source={mountains} label={`${elevation}m`}/>
                     </View>
                     <Image style={styles.image} source={defaultRace}/>
                 </View>
@@ -69,10 +83,22 @@ const styles = StyleSheet.create({
         marginVertical: 3,
         flexDirection: "row",
         marginHorizontal: 20,
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        color: "blue"
     },
     infoLabel: {
         color: "#a30505",
+    },
+    infosRegister: {
+        color: "#053aa3",
+    },
+    infosResults: {
+        color: "#3ca305",
+    },
+    infosRegisteredLabel: {
+        fontSize: 22,
+        color: "#a30505",
+        fontWeight: "bold"
     }
 })
 export default RaceItem

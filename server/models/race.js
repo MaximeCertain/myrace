@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     elevation: DataTypes.FLOAT,
     max_participants: DataTypes.INTEGER,
     description: DataTypes.STRING,
+    date: DataTypes.DATE,
     UserId: DataTypes.INTEGER
   }, {});
   Race.associate = function(models) {

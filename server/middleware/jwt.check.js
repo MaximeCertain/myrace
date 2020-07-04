@@ -11,7 +11,6 @@ class JwtCheck {
     static async check(req, res, next) {
         let headerAuth = req.headers['authorization'];
         let userInformation = await jwtUtils.getUserInformation(headerAuth);
-
         if (userInformation.userId < 0){
             return res.status(401).json({'error': 'Invalid API Authentication'})
         }

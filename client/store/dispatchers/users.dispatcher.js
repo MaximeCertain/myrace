@@ -8,7 +8,7 @@ export function fetchEditUser(user) {
            (await UsersService.update(user))
            dispatch(fetchEditUserSuccess(user));
         } catch (e) {
-            dispatch(fetchEditUserFailure(error));
+            dispatch(fetchEditUserFailure(e));
         }
     };
 }

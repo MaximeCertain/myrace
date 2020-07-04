@@ -11,7 +11,7 @@ class UsersService extends ConfigApi {
             },
             body: JSON.stringify(body)
         };
-        let call = await fetch(`http://192.168.1.20:8080/api/login`, init);
+        let call = await fetch(`${ConfigApi.baseUrl()}login`, init);
 
         return call;
     }
@@ -24,7 +24,7 @@ class UsersService extends ConfigApi {
             },
             body: JSON.stringify(body)
         };
-        let call = await fetch(`http://192.168.1.20:8080/api/users`, init);
+        let call = await fetch(`${ConfigApi.baseUrl()}users`, init);
 
         return call;
     }
@@ -38,7 +38,7 @@ class UsersService extends ConfigApi {
             },
             body: JSON.stringify(body)
         };
-        let call = await fetch(`http://192.168.1.20:8080/api/users/` + body.id, init);
+        let call = await fetch(`${ConfigApi.baseUrl()}users/` + body.id, init);
 
         return call;
     }

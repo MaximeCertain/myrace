@@ -11,6 +11,7 @@ import DetailRace from "../components/race/DetailRace";
 import Profile from "./Profile";
 import Register from "./Register";
 import Registrations from "./Registrations";
+import CreateRace from "./CreateRace";
 
 const TabNavigator = createBottomTabNavigator({
     //https://fontawesome.com/icons?d=gallery&q=profile
@@ -67,7 +68,8 @@ const AppNavigator = createStackNavigator({
     Login: {screen: Login, navigationOptions: {headerShown: false}},
     Home: {screen: TabNavigator, navigationOptions: {headerShown: false}},
     Register: {screen: Register, navigationOptions: {headerShown: false}},
-    DetailRace: {screen: DetailRace, navigationOptions: {headerShown: false}}
+    DetailRace: {screen: DetailRace, navigationOptions: {headerShown: false}},
+    CreateRace: {screen : CreateRace, navigationOptions: {headerShown: false}}
 }, {
     initialRouteName: 'Splash'
 })

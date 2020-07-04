@@ -7,7 +7,7 @@ class IconLabel extends Component {
         return (
             <View style={styles.iconLabelWrapper}>
                 <Image source={source} style={styles.icon}/>
-                <Text style={styles.label}>
+                <Text style={[styles.label, this.props.color]}>
                     {label}
                 </Text>
             </View>
