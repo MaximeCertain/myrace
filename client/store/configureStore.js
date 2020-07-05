@@ -2,6 +2,7 @@ import {createStore, combineReducers, applyMiddleware, compose} from 'redux';
 import reducer from './reducers/reducer'
 import login from "./reducers/users.reducers";
 import race from "./reducers/races.reducers";
+import message from "./reducers/messages.reducer";
 
 import thunk from "redux-thunk";
 import {persistStore, persistReducer} from 'redux-persist';
@@ -14,7 +15,7 @@ const persistConfig = {
 }
 
 const combinedReducers = combineReducers({
-    login, race
+    login, race, message
 })
 
 const persistedReducer = persistReducer(persistConfig, combinedReducers)

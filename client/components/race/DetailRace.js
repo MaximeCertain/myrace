@@ -9,6 +9,7 @@ import {fetchRaces, fetchRegisterRace} from "../../store/dispatchers/races.dispa
 import {connect} from "react-redux";
 import MessagesRace from "./MessagesRace";
 import Helpers from "../../helpers/Helpers";
+import RankingRace from "./RankingRace";
 
 class DetailRace extends Component {
     //cloic btn => dispatcher, load API puis refresh state redirect inscriptions si inscrition sinon reste ici
@@ -16,7 +17,8 @@ class DetailRace extends Component {
         super(props);
         this.state = {
             data: this.props.navigation.state.params.data,
-            isRegister: false
+            isRegister: false,
+            type: this.props.navigation.state.params.type
         }
     }
     //est on inscrit à cette course ?
@@ -40,7 +42,6 @@ class DetailRace extends Component {
     render() {
         let {kilometers, name, Runners, createdAt, max_participants, elevation, description, id, Messages} = this.state.data
         let {isRegister} = this.state
-
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.header}>
@@ -54,12 +55,14 @@ class DetailRace extends Component {
                     <TextVignet label={"Denivelé +"} detail={elevation}/>
                     <TextVignet label={"Participants"} detail={`${Runners.length} / ${max_participants}`}/>
                 </View>
+                <View>
+                    {this.state.type ==="result" && <RankingRace Runners={Runners}/>}
+                </View>
                 <View style={styles.description}>
                     <DescriptionDeployment description={description}/>
                 </View>
-
                 {!isRegister ? <SubmitButton title={"M'inscrire à cette course"} onPress={() => this.register()}/> :
-                    <MessagesRace raceId={id} messages={Messages}/>}
+                    <MessagesRace raceId={id} messages={Messages} type={this.state.type} />}
             </ScrollView>
         )
     }

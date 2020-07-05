@@ -38,15 +38,11 @@ export function fetchFormRaces(body) {
 export function fetchRegisterRace(raceId) {
     return async dispatch => {
         try {
-            console.log(raceId)
-
-           // dispatch(fetchRaceFormBegins());
+            // dispatch(fetchRaceFormBegins());
             let race = (await RacesService.registerRace(raceId));
-            console.log(race)
-         /*   if (race != null) {
-                dispatch(fetchRaceFormSuccess(race));
-            }*/
-
+            /*   if (race != null) {
+                   dispatch(fetchRaceFormSuccess(race));
+               }*/
         } catch (e) {
             dispatch(fetchRaceFormFailure(e));
         }

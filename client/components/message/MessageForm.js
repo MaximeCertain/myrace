@@ -19,7 +19,7 @@ class MessageForm extends Component {
     }
 
     async send(values) {
-        await this.props.sendMessage(values, this.props.raceId)
+        await this.props.sendMessage(values, this.props.raceId, this.props.type)
 
     }
 
@@ -47,8 +47,8 @@ class MessageForm extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        sendMessage: (body, raceId) => {
-            dispatch(fetchSendMessage(body, raceId))
+        sendMessage: (body, raceId, type) => {
+            dispatch(fetchSendMessage(body, raceId, type))
         }
     }
 }

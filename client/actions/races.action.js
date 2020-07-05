@@ -34,3 +34,9 @@ export const getRegisteredRaces = (id) => ({
     loading: false,
     id: {id}
 })
+
+export const getResultedRaces = (id) => ({
+    type: "GET_RESULTED_RACES",
+    loading: false,
+    id: {id}
+})

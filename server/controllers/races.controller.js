@@ -27,7 +27,7 @@ class RacesController {
             }
 
             let race = await db.Race.create(raceToCreate);
-            race =  await db.Race.findOne({
+            race = await db.Race.findOne({
                 where: {id: race.id},
                 include: [db.User, "Runners", {
                     model: db.Message,
@@ -117,6 +117,15 @@ class RacesController {
     }
 
     static async list(req, res) {
+        let customFilter = null;
+        if (req.query.name) {
+            customFilter = {
+                name: {
+                    [Op.like]: '%' + req.query["name"] + '%'
+                }
+            }
+            delete req.query["name"]
+        }
         let status = 200;
         let body = [];
         try {
@@ -127,7 +136,8 @@ class RacesController {
                     include: [{
                         model: db.User
                     }]
-                }]
+                }],
+                where: [req.query, customFilter]
             })
             body = {'races': races, 'message': 'list of races'};
         } catch (e) {

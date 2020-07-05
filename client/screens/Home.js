@@ -1,17 +1,25 @@
 import React, {Component} from 'react'
-import {View, Text, FlatList, ScrollView, StyleSheet} from 'react-native'
+import {
+    View, Text, FlatList, ScrollView, StyleSheet, TouchableHighlight
+} from 'react-native'
 import {connect} from "react-redux";
 import {fetchRaces} from '../store/dispatchers/races.dispatcher'
 import RaceItem from "../components/race/RaceItem";
 import Title from "../components/default-elements/Title";
 import ActivityIndicator from "react-native-web/dist/exports/ActivityIndicator";
 import CssHelper from "../helpers/CssHelper";
+import Icon from "react-native-vector-icons/FontAwesome";
+import TouchableOpacity from "react-native-web/src/exports/TouchableOpacity";
+import {Button} from "react-native-web";
+import FilterRace from "../components/race/FilterRace";
+import RacesService from "../services/api/races.service";
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            races: [],
+            races: this.props.races,
+            filtering: false
         }
     }
 
@@ -19,8 +27,28 @@ class Home extends Component {
         await this.props.getRaces()
     }
 
+    /**
+     * Afficher le filtre et le réinitialiser la liste
+     */
+    filter() {
+        this.setState({filtering: !this.state.filtering})
+        if(this.state.filtering){
+            this.setState({
+                races: this.props.races
+            })
+        }
+    }
+
+    filterRaces = async values => {
+        let racesWithFilter = await RacesService.filter(values);
+        this.setState({
+            races: racesWithFilter
+        })
+    }
+
     render() {
-        let {navigation, error, loading, races} = this.props;
+        let {navigation, error, loading} = this.props;
+        let {races} = this.state
         if (loading) {
             return (<ActivityIndicator/>)
         }
@@ -28,11 +56,22 @@ class Home extends Component {
         return (
             <ScrollView style={styles.container}>
                 <View style={styles.header}>
-                    <Title color={color} title={"Prochaines courses"}/>
+                    {this.state.filtering ? <FilterRace launchFilter={this.filterRaces}/> :
+                        <Title color={color} title={"Prochaines courses"}/>}
+                    <TouchableHighlight onPress={() => this.filter()} underlayColor='#042417'>
+                        <View>
+                            <Icon
+                                name='filter'
+                                size={50}
+                                color='#042'
+                            />
+                        </View>
+                    </TouchableHighlight>
+
                 </View>
                 {races === null && <Title title={'null'}/>}
                 <FlatList
-                    data={races} backgroundColor={"#FFF"}
+                    data={this.state.races} backgroundColor={"#FFF"}
                     keyExtractor={item => item.id}
                     renderItem={({item}) =>
                         <RaceItem navigation={navigation}

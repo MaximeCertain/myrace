@@ -12,6 +12,8 @@ import Profile from "./Profile";
 import Register from "./Register";
 import Registrations from "./Registrations";
 import CreateRace from "./CreateRace";
+import Results from "./Results";
+import SaveRaceResults from "./SaveRaceResults";
 
 const TabNavigator = createBottomTabNavigator({
     //https://fontawesome.com/icons?d=gallery&q=profile
@@ -34,10 +36,10 @@ const TabNavigator = createBottomTabNavigator({
             )
         })
     }, Results: {
-        screen: Registrations,
+        screen: Results,
         navigationOptions: () => ({
             tabBarIcon: (tintColor) => (
-                <Icon name={"registered"}
+                <Icon name={"info-circle"}
                       color={tintColor}
                       size={24}/>
             )
@@ -69,7 +71,8 @@ const AppNavigator = createStackNavigator({
     Home: {screen: TabNavigator, navigationOptions: {headerShown: false}},
     Register: {screen: Register, navigationOptions: {headerShown: false}},
     DetailRace: {screen: DetailRace, navigationOptions: {headerShown: false}},
-    CreateRace: {screen : CreateRace, navigationOptions: {headerShown: false}}
+    CreateRace: {screen: CreateRace, navigationOptions: {headerShown: false}},
+    SaveRaceResults: {screen: SaveRaceResults, navigationOptions: {headerShown: false}}
 }, {
     initialRouteName: 'Splash'
 })

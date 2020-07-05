@@ -3,11 +3,12 @@ import {Text, StyleSheet, View, Image, TouchableOpacity} from 'react-native';
 import defaultRace from "../../assets/default_race.jpg";
 import runner from "../../assets/runner.png";
 import mountains from "../../assets/mountain.png";
-
+import alert from "../../assets/alert.png";
 import Title from "../default-elements/Title";
 import IconLabel from "../default-elements/IconLabel";
 import Helpers from "../../helpers/Helpers";
 import CssHelper from "../../helpers/CssHelper";
+import NavigateButton from "../default-elements/NavigateButton";
 
 class RaceItem extends Component {
     constructor(props) {
@@ -24,32 +25,37 @@ class RaceItem extends Component {
     }
 
     details() {
-        let {navigation, data} = this.props;
-        console.log(data)
+        let {navigation, data, type} = this.props;
+
         navigation.navigate('DetailRace', {
-                data: data
+                data: data,
+                type: type
             }
         );
     }
 
 
     render() {
-        let {kilometers, name, Runners, createdAt, max_participants, elevation, date} = this.props.data
+        let {kilometers, name, Runners, createdAt, max_participants, elevation, date, User} = this.props.data
         let {color} = this.props
         let isRegisteredScreen = this.props.type === "register"
         return (
             <TouchableOpacity onPress={() => this.details()}>
                 <View style={styles.container}>
+                    {User.id === this.props.userId
+                    &&
+                    <NavigateButton onPress={() => this.props.navigation.navigate("SaveRaceResults", {race: this.props.data})}
+                                    title={"Course déroulée ! Enregister les résultats"}/>
+                    }
                     <Text style={[styles.title, color]}>{name} </Text>
                     <View style={[styles.informations, color]}>
                         <Text style={color}>{`${kilometers} km `} </Text>
                         <Text
                             style={color}>{this.state.type === "register" ? Helpers.extractDurationDate(date) : Helpers.getDate(date)} </Text>
-
                     </View>
-
                     <View style={styles.informations}>
-                        <IconLabel color={color} source={runner} label={`${Runners && Runners.length} / ${max_participants}`}/>
+                        <IconLabel color={color} source={runner}
+                                   label={`${Runners && Runners.length} / ${max_participants}`}/>
                         <IconLabel color={color} source={mountains} label={`${elevation}m`}/>
                     </View>
                     <Image style={styles.image} source={defaultRace}/>
