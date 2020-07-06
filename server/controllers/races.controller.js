@@ -57,7 +57,9 @@ class RacesController {
                 elevation: req.body.elevation,
                 max_participants: req.body.max_participants,
                 description: req.body.description,
-                UserId: req.userInformation.userId
+                UserId: req.userInformation.userId,
+                validatedAdmin: req.body.validatedAdmin,
+                reasonAdmin: req.body.reasonAdmin
             };
 
             let raceFound = await db.Race.findOne({

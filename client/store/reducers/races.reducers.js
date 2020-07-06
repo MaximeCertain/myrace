@@ -44,6 +44,18 @@ export default function race(state = initialState, action) {
                     return registered
                 })
             };
+        case "FETCH_RACE_FORM_EDIT_SUCCESS":
+            return {
+                ...state,
+                loading: false,
+                races: state.races.map(race => {
+                    if (race.id === action.payload.race.id) {
+                        race = action.payload.race;
+                    }
+                    return race;
+                })
+
+            };
         case "GET_RESULTED_RACES":
             return {
                 ...state,

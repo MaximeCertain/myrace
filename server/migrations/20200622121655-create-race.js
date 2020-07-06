@@ -29,6 +29,12 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
+      reasonAdmin: {
+        type: Sequelize.STRING
+      },
+      validatedAdmin: {
+        type: Sequelize.BOOLEAN
+      },
       UserId: {
         type: Sequelize.INTEGER,
         allowNull: false,

@@ -56,6 +56,7 @@ class UserRacesController {
                 bibNumber: req.body.bibNumber,
                 time_achieved: req.body.time_achieved
             }
+            console.log(userRaceToCreate)
 
             if ((!await VerificationUtils.isFloat(userRaceToCreate.bibNumber)) || !await VerificationUtils.isFloat(userRaceToCreate.time_achieved)) {
                 return res.status(500).json({'errors': 'invalid fields'});

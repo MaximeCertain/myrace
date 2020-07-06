@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     max_participants: DataTypes.INTEGER,
     description: DataTypes.STRING,
     date: DataTypes.DATE,
-    UserId: DataTypes.INTEGER
+    UserId: DataTypes.INTEGER,
+    validatedAdmin: DataTypes.BOOLEAN,
+    reasonAdmin: DataTypes.STRING
   }, {});
   Race.associate = function(models) {
     models.Race.belongsTo(models.User,{

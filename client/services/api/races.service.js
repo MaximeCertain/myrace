@@ -55,10 +55,30 @@ class RacesService extends ConfigApi {
         let response = await call.json();
         if (response.error && response.error === 'Invalid API Authentication')
             console.log(response.error)
-        console.log(response)
         return response.race;
     }
 
+    static async update(body) {
+        let init = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": store.getState().login.token
+            },
+            body: JSON.stringify(body)
+        };
+        let call = await fetch(`${ConfigApi.baseUrl()}races/${body.id}`, init);
+        console.log(call)
+        let response = await call.json();
+        if (response.error && response.error === 'Invalid API Authentication')
+            console.log(response.error)
+        return response;
+    }
+
+    /**
+     * Inscription à une course
+     * @returns {Promise<*>}
+     */
     static async registerRace(raceId) {
         let init = {
             method: "POST",
@@ -69,6 +89,27 @@ class RacesService extends ConfigApi {
         };
         console.log("alelellele")
         let call = await fetch(`${ConfigApi.baseUrl()}user_races/${raceId}`, init);
+        let response = await call.json();
+        if (response.error && response.error === 'Invalid API Authentication')
+            console.log(response.error)
+        console.log(response)
+        return response.race;
+    }
+
+    /**
+     * L'organisateur enregistre ici les résultats d'une participation à une course
+     * @returns {Promise<*>}
+     */
+   static async sendResult(raceId, userId, body){
+        let init = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": store.getState().login.token
+            },
+            body: JSON.stringify(body)
+        };
+        let call = await fetch(`${ConfigApi.baseUrl()}user_races/${userId}/${raceId}`, init);
         let response = await call.json();
         if (response.error && response.error === 'Invalid API Authentication')
             console.log(response.error)

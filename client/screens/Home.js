@@ -1,16 +1,13 @@
 import React, {Component} from 'react'
 import {
-    View, Text, FlatList, ScrollView, StyleSheet, TouchableHighlight
+    View, Text, FlatList, ScrollView, StyleSheet, TouchableHighlight, Button, ActivityIndicator, TouchableOpacity
 } from 'react-native'
 import {connect} from "react-redux";
 import {fetchRaces} from '../store/dispatchers/races.dispatcher'
 import RaceItem from "../components/race/RaceItem";
 import Title from "../components/default-elements/Title";
-import ActivityIndicator from "react-native-web/dist/exports/ActivityIndicator";
 import CssHelper from "../helpers/CssHelper";
 import Icon from "react-native-vector-icons/FontAwesome";
-import TouchableOpacity from "react-native-web/src/exports/TouchableOpacity";
-import {Button} from "react-native-web";
 import FilterRace from "../components/race/FilterRace";
 import RacesService from "../services/api/races.service";
 

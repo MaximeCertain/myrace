@@ -36,16 +36,17 @@ class RaceItem extends Component {
 
 
     render() {
-        let {kilometers, name, Runners, createdAt, max_participants, elevation, date, User} = this.props.data
+        let {kilometers, name, Runners, createdAt, max_participants, elevation, date, User, validatedAdmin} = this.props.data
         let {color} = this.props
         let isRegisteredScreen = this.props.type === "register"
         return (
             <TouchableOpacity onPress={() => this.details()}>
                 <View style={styles.container}>
+                    {validatedAdmin && <Text style={styles.noRace}>{"La course n'aura pas lieu !"}</Text>}
                     {User.id === this.props.userId
                     &&
                     <NavigateButton onPress={() => this.props.navigation.navigate("SaveRaceResults", {race: this.props.data})}
-                                    title={"Course déroulée ! Enregister les résultats"}/>
+                                    title={"Votre Course s'est déroulée ! Enregister les résultats"}/>
                     }
                     <Text style={[styles.title, color]}>{name} </Text>
                     <View style={[styles.informations, color]}>
@@ -105,6 +106,12 @@ const styles = StyleSheet.create({
         fontSize: 22,
         color: "#a30505",
         fontWeight: "bold"
+    },
+    noRace:{
+        fontWeight: "bold",
+        fontSize: 19,
+        color:"red",
+        textAlign: "center"
     }
 })
 export default RaceItem

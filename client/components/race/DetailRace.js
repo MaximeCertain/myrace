@@ -10,6 +10,8 @@ import {connect} from "react-redux";
 import MessagesRace from "./MessagesRace";
 import Helpers from "../../helpers/Helpers";
 import RankingRace from "./RankingRace";
+import ManageRaceValidity from "./ManageRaceValidity";
+import UnvalidatedRaceMessage from "./UnvalidatedRaceMessage";
 
 class DetailRace extends Component {
     //cloic btn => dispatcher, load API puis refresh state redirect inscriptions si inscrition sinon reste ici
@@ -21,6 +23,7 @@ class DetailRace extends Component {
             type: this.props.navigation.state.params.type
         }
     }
+
     //est on inscrit à cette course ?
     componentDidMount() {
         this.state.data.Runners.map(r => {
@@ -40,10 +43,13 @@ class DetailRace extends Component {
     }
 
     render() {
-        let {kilometers, name, Runners, createdAt, max_participants, elevation, description, id, Messages} = this.state.data
+        let {kilometers, name, Runners, createdAt, max_participants, elevation, description, id, Messages, validatedAdmin, reasonAdmin} = this.state.data
         let {isRegister} = this.state
         return (
             <ScrollView style={styles.container}>
+                {this.props.user.TypeUser.code === "ROLE_ADMIN" && <ManageRaceValidity race={this.state.data}/>}
+                {validatedAdmin && <UnvalidatedRaceMessage reasonAdmin={reasonAdmin}/>}
+
                 <View style={styles.header}>
                     <Title title={name}/>
                     <ImageBackground style={styles.image}
@@ -56,13 +62,13 @@ class DetailRace extends Component {
                     <TextVignet label={"Participants"} detail={`${Runners.length} / ${max_participants}`}/>
                 </View>
                 <View>
-                    {this.state.type ==="result" && <RankingRace Runners={Runners}/>}
+                    {this.state.type === "result" && <RankingRace Runners={Runners}/>}
                 </View>
                 <View style={styles.description}>
                     <DescriptionDeployment description={description}/>
                 </View>
                 {!isRegister ? <SubmitButton title={"M'inscrire à cette course"} onPress={() => this.register()}/> :
-                    <MessagesRace raceId={id} messages={Messages} type={this.state.type} />}
+                    <MessagesRace raceId={id} messages={Messages} type={this.state.type}/>}
             </ScrollView>
         )
     }

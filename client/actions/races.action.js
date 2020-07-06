@@ -24,6 +24,12 @@ export const fetchRaceFormSuccess = (race) => ({
     loading: false
 
 })
+export const fetchRaceFormEditSuccess = (race) => ({
+    type: "FETCH_RACE_FORM_EDIT_SUCCESS",
+    payload: {race},
+    loading: false
+
+})
 export const fetchRaceFormFailure = (error) => ({
     type: "FETCH_RACE_FORM_FAILURE",
     loading: false,
