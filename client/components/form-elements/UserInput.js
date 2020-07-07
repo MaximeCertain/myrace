@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         color: 'red'
     },
     textarea: {
-        height: 150
+        height: 85
     }
 });
 

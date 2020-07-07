@@ -1,49 +1,52 @@
 import React, {Component} from "react";
-import { useField, useFormikContext } from "formik";
+import {useField, useFormikContext} from "formik";
 import DatePicker from "react-native-datepicker";
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {Text, TouchableOpacity, View} from "react-native";
 
-class DatePickerField extends Component{
-    render(){
+class DatePickerField extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isDatePickerVisible: false,
+            pickedDate: ""
+        };
+    }
+    //Date Picker handling methods
+    hideDatePicker = () => {
+        this.setState({ isDatePickerVisible: false });
+    };
+
+    handleDatePicked = date => {
+        const mdate = date.toString().split(" ");
+        this.setState({
+            pickedDate: mdate[1] + " " + mdate[2] + ", " + mdate[3]
+        });
+        this.hideDatePicker();
+        console.log(this.state.pickedDate);
+    };
+
+    showDatePicker = () => {
+        this.setState({isDatePickerVisible: true})
+        this.setState({ isDatePickerVisible: true });
+    };
+    render() {
         return (
-            <DatePicker
-                style={{width: 200}}
-                date={null}
-                mode="date"
-                placeholder="select date"
-                format="YYYY-MM-DD"
-                minDate="2016-05-01"
-                maxDate="2016-06-01"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                    dateIcon: {
-                        position: 'absolute',
-                        left: 0,
-                        top: 4,
-                        marginLeft: 0
-                    },
-                    dateInput: {
-                        marginLeft: 36
-                    }
-                    // ... You can check the source to find the other keys.
-                }}
-             //   onDateChange={(date) => {this.setState({date: date})}}
-            />
+            <View>
+                <TouchableOpacity onPress={this.showDatePicker}>
+                    <Text>{"Séléctionner la date"}</Text>
+                </TouchableOpacity>
+
+                <DateTimePicker
+                    mode="date"
+                    value={this.state.pickedDate}
+                    isVisible={this.state.isDatePickerVisible}
+                    onConfirm={this.handleDatePicked}
+                    onCancel={this.hideDatePicker}
+                />
+            </View>
         )
     }
-} /*= ({ ...props }) => {
-    const { setFieldValue } = useFormikContext();
-    const [field] = useField(props);
-    return (
-        <DatePicker
-            {...field}
-            {...props}
-            selected={(field.value && new Date(field.value)) || null}
-            onChange={val => {
-                setFieldValue(field.name, val);
-            }}
-        />
-    );
-};*/
-
+}
 export default DatePickerField

@@ -37,6 +37,9 @@ class Results extends Component {
 }
 
 const styles = StyleSheet.create({
+    container:{
+      marginTop: 25,
+    },
     button: {
         marginHorizontal: 100
     },

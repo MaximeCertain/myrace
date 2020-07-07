@@ -47,6 +47,9 @@ class Registrations extends Component {
 }
 
 const styles = StyleSheet.create({
+    container:{
+      marginTop: 30
+    },
     button: {
         marginHorizontal: 100
     },

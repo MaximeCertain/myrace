@@ -26,7 +26,7 @@ class FilterRace extends Component {
 
     render() {
         return (
-        <View>
+        <View style={styles.container}>
             <Formik
                 initialValues={{
                     kilometers: '',
@@ -57,5 +57,14 @@ class FilterRace extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+        container:{
+            flex: 1,
+            flexDirection: "column",
+            textAlign: "center",
+            justifyContent: "center"
+        }
+    })
 
 export default FilterRace

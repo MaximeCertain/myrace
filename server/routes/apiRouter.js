@@ -14,6 +14,7 @@ router.post('/users', userController.register);
 router.post('/login', userController.login);
 router.get('/logged-details', JwtCheck.check, userController.loggedUserDetails);
 router.get('/users/:id', JwtCheck.check, userController.details);
+router.get('/users', JwtCheck.check, userController.list);
 router.put('/users/:id', JwtCheck.check, userController.update);
 router.delete('/users/:id', JwtCheck.check, userController.delete);
 

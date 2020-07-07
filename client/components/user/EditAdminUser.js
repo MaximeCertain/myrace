@@ -1,57 +1,46 @@
 import React, {Component} from 'react'
 import {View, Text, FlatList, ScrollView, StyleSheet, Image} from 'react-native'
-import Title from "../components/default-elements/Title";
 import {Formik} from "formik";
 import {connect} from "react-redux";
-import UserInput from "../components/form-elements/UserInput";
-import mailLogo from "../assets/mail.png";
-import name from "../assets/name.png";
-import description from "../assets/description.png";
-import age from "../assets/age.png";
-import userImage from "../assets/user.png";
-import SubmitButton from "../components/form-elements/SubmitButton";
-import NavigateButton from "../components/default-elements/NavigateButton";
-import ProfileSchema from "../forms/validators/profile.validator";
-import {fetchRaces} from "../store/dispatchers/races.dispatcher";
-import {fetchEditUser} from "../store/dispatchers/users.dispatcher";
-import {logout} from "../actions/users.actions";
 import {NavigationActions, StackActions} from 'react-navigation';
-import ManageRaceValidity from "../components/race/ManageRaceValidity";
+import UserInput from "../form-elements/UserInput";
+import SubmitButton from "../form-elements/SubmitButton";
+import mailLogo from "../../assets/mail.png";
+import name from "../../assets/name.png";
+import description from "../../assets/description.png";
+import age from "../../assets/age.png";
+import userImage from "../../assets/user.png";
+import Title from "../default-elements/Title";
+import ProfileSchema from "../../forms/validators/profile.validator";
+import {fetchEditUserAdmin} from "../../store/dispatchers/users.dispatcher";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 
-class Profile extends Component {
+class EditAdminUser extends Component {
     constructor(props) {
         super(props);
-    }
 
-    logouts() {
-        this.props.logout()
-        const resetAction = StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName: 'Login' })],
-        });
-        this.props.navigation.dispatch(resetAction);
+    }
+   async update(values) {
+       await this.props.updateProfileAdmin(values);
+
+       this.props.navigation.navigate('ListUser');
     }
 
     render() {
-        let {user} = this.props
+        let user = this.props.navigation.state.params.data
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    {user && user.TypeUser.code === "ROLE_ADMIN" && <NavigateButton title={"ADMINISTRATION UTILISATEURS"} onPress={() => this.props.navigation.navigate('ListUsers')} />}
-                    <View style={styles.logout}>
-                        <NavigateButton title={"Me déconnecter"} onPress={() => this.logouts()}/>
-                    </View>
                     <Icon name={"user-circle"}
                           color={"red"}
-                          size={100}/>
-                    <Title title={"Modifier mon profil"}/>
+                          size={50}/>
+                          <Title title={`Modification de ${user.lastname}`}/>
                 </View>
                 {user &&
                 <Formik
                     initialValues={user}
-                    onSubmit={values => this.props.updateProfile(values)}
+                    onSubmit={values => this.update(values)}
                     validationSchema={ProfileSchema}>
                     {({handleChange, values, handleSubmit, errors}) => (
                         <View>
@@ -106,18 +95,15 @@ const styles = StyleSheet.create({
 //envoi le dispatch au, dispatcher
 const mapDispatchToProps = dispatch => {
     return {
-        updateProfile: (body) => {
-            dispatch(fetchEditUser(body))
-        },
-        logout: () => {
-            dispatch(logout())
+        updateProfileAdmin: async (body) => {
+            await dispatch(fetchEditUserAdmin(body))
         }
     }
 }
 
 //abonnement objet user
 const mapStateToProps = state => ({
-    user: state.login.user
+    users: state.login.users
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps, mapDispatchToProps)(EditAdminUser)

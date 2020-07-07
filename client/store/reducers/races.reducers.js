@@ -72,13 +72,6 @@ export default function race(state = initialState, action) {
                 })
             };
         case "FETCH_MESSAGE_FORM_SUCCESS":
-            console.log(action)
-            /*  return state.races.map(race => {
-                  if (product.name === action.payload.name) {
-                      return {...product, quantity: product.quantity-1}
-                  };
-                  return product;
-              });*/
             return {
                 ...state,
                 loading: false,

@@ -84,9 +84,11 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         textAlign: "center",
-        backgroundColor: "#e7e6e6"
+        backgroundColor: "#e7e6e6",
+        marginTop:25
     },
     header: {
+        flex:1,
         flexDirection: "row"
     }
 })

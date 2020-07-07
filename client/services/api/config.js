@@ -1,10 +1,10 @@
 class ConfigApi{
     constructor() {
-        this.baseUrl = 'http://localhost:8080/api';
+        this.baseUrl = 'http://192.168.1.20:8080/api/';
     }
 
     static baseUrl() {
-        return 'http://localhost:8080/api/';
+        return 'http://192.168.1.20:8080/api/';
     }
 }
 

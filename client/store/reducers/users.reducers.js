@@ -1,5 +1,5 @@
 // Store/Reducers/favoriteReducer.js
-const initialState = {token: null, user: null}
+const initialState = {token: null, user: null, users: []}
 
 const login= (state = initialState, action) => {
     switch (action.type) {
@@ -19,8 +19,6 @@ const login= (state = initialState, action) => {
                 error: null
             };
         case "FETCH_EDIT_PROFILE_SUCCESS":
-
-            console.log(action.payload.user)
             return {
                 ...state,
                 loading: false,
@@ -32,6 +30,32 @@ const login= (state = initialState, action) => {
                 loading: false,
                 error: action.payload.error,
                 races: []
+            };
+        case "FETCH_ALL_USERS":
+            return {
+                ...state,
+                loading: false,
+                users: action.payload.users,
+                races: action.payload.users
+            };
+        case "FETCH_EDIT_ADMIN_USER":
+            console.log(action)
+            return {
+                ...state,
+                loading: false,
+                users: state.users.map(user => {
+                    if (user.id === action.payload.user.id) {
+                        console.log(user)
+                        user = action.payload.user;
+                    }
+                    return user;
+                })
+            };
+        case "DELETE_USER_ADMIN":
+            return {
+                ...state,
+                loading: false,
+                users: state.users.filter(user => user.id !== action.payload.idUser)
             };
         default:
             return state

@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
         paddingLeft: 25
     },
     iconLabelWrapper: {
-        flexDirection: "row",
-        alignItems: "flexStart"
+
     }
 })

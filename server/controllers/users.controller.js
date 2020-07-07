@@ -2,10 +2,26 @@ import bcrypt from "bcryptjs"
 import db from '../models/index.js';
 import JwtUtils from "../utils/jwt.utils";
 import BaseController from "./base.controller";
+import {Op} from "sequelize";
 
 class UserController extends BaseController {
 
     static async list(req, res) {
+        let status = 200;
+        let body = [];
+        try {
+            let users = await db.User.findAll({
+                where: {TypeUserId: {
+                        [Op.not]: "2"
+                    }},
+            })
+                status = 200
+                body = {'users': users, 'message': 'getting users'};
+
+        } catch (e) {
+            console.log(e.message)
+        }
+        return res.status(status).json(body);
     }
 
     static async register(req, res) {

@@ -11,17 +11,6 @@ class RankingRace extends Component {
     render() {
         let {Runners} = this.props
 
-        /* function compare( a, b ) {
-             if ( a.last_nom < b.last_nom ){
-                 return -1;
-             }
-             if ( a.last_nom > b.last_nom ){
-                 return 1;
-             }
-             return 0;
-         }
-
-         objs.sort( compare );*/
         Runners.sort(function (a, b) {
             return (a.UserRaces.time_achieved > b.UserRaces.time_achieved) ? 1 : ((b.UserRaces.time_achieved > a.UserRaces.time_achieved) ? -1 : 0);
         });

@@ -14,6 +14,8 @@ import Registrations from "./Registrations";
 import CreateRace from "./CreateRace";
 import Results from "./Results";
 import SaveRaceResults from "./SaveRaceResults";
+import ListUser from "../components/user/ListUser";
+import EditAdminUser from "../components/user/EditAdminUser";
 
 const TabNavigator = createBottomTabNavigator({
     //https://fontawesome.com/icons?d=gallery&q=profile
@@ -72,7 +74,10 @@ const AppNavigator = createStackNavigator({
     Register: {screen: Register, navigationOptions: {headerShown: false}},
     DetailRace: {screen: DetailRace, navigationOptions: {headerShown: false}},
     CreateRace: {screen: CreateRace, navigationOptions: {headerShown: false}},
-    SaveRaceResults: {screen: SaveRaceResults, navigationOptions: {headerShown: false}}
+    SaveRaceResults: {screen: SaveRaceResults, navigationOptions: {headerShown: false}},
+    ListUsers: {screen: ListUser, navigationOptions: {headerShown: false}},
+    EditAdminUser: {screen: EditAdminUser, navigationOptions: {headerShown: false}}
+
 }, {
     initialRouteName: 'Splash'
 })

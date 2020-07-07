@@ -27,3 +27,18 @@ export const fetchEditUserFailure = (error) => ({
 })
 
 
+export const fetchAllUsers = (users) => ({
+    type: "FETCH_ALL_USERS",
+    loading: false,
+    payload: {users}
+})
+export const fetchEditAdminUser = (user) => ({
+    type: "FETCH_EDIT_ADMIN_USER",
+    loading: false,
+    payload: {user}
+})
+export const fetchDeleteAdminUser = (idUser) => ({
+    type: "DELETE_USER_ADMIN",
+    loading: false,
+    payload: {idUser}
+})
