@@ -10,7 +10,7 @@ import RaceItem from "../components/race/RaceItem";
 
 class Results extends Component {
     componentDidMount() {
-        this.props.getResultedRaces(this.props.user.id)
+        (this.props.user.id) && this.props.getResultedRaces(this.props.user.id)
     }
 
     render() {
@@ -27,7 +27,7 @@ class Results extends Component {
                     keyExtractor={item => item.id}
                     renderItem={({item}) =>
                         <RaceItem navigation={navigation}
-                                  userId={user.id}
+                                  userId={(user && user.id)}
                                   color={color}
                                   type={"result"}
                                   data={item}/>}/>

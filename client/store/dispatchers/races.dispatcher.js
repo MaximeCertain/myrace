@@ -52,15 +52,10 @@ export function fetchRegisterRace(raceId) {
 }
 
 export function fetchManageRaceValidity(body) {
-    console.log(body)
     return async dispatch => {
         try {
-            let race = (await RacesService.update(body));
-            if (race.message === "updated_race") {
-                    dispatch(fetchRaceFormEditSuccess(body));
-            }
-            console.log(store.getState().race.races)
-
+            (await RacesService.update(body));
+            dispatch(fetchRaceFormEditSuccess(body));
         } catch (e) {
             dispatch(fetchRaceFormFailure(e));
         }

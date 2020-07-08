@@ -14,6 +14,7 @@ class UserController extends BaseController {
                 where: {TypeUserId: {
                         [Op.not]: "2"
                     }},
+                include: ["CreatedRaces"]
             })
                 status = 200
                 body = {'users': users, 'message': 'getting users'};

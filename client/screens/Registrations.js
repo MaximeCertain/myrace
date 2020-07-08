@@ -7,7 +7,6 @@ import {fetchRaces} from "../store/dispatchers/races.dispatcher";
 import {getRegisteredRaces} from "../actions/races.action";
 import Title from "../components/default-elements/Title";
 import RaceItem from "../components/race/RaceItem";
-import RegisteredRaceItem from "../components/race/RegisteredRaceItem";
 import CssHelper from "../helpers/CssHelper";
 
 class Registrations extends Component {

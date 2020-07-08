@@ -62,7 +62,7 @@ class DetailRace extends Component {
                     <TextVignet label={"Participants"} detail={`${Runners.length} / ${max_participants}`}/>
                 </View>
                 <View>
-                    {this.state.type === "result" && <RankingRace Runners={Runners}/>}
+                    {this.state.type !== null && this.state.type === "result" && <RankingRace Runners={Runners} />}
                 </View>
                 <View style={styles.description}>
                     <DescriptionDeployment description={description}/>

@@ -15,15 +15,12 @@ class UserResultBox extends Component {
     render() {
         let {data, position} = this.props
         return (
-            <View>
                 <View style={styles.container}>
-                    <Text
-                        style={[styles.position, position === 1 ? styles.gold : position === 2 ? styles.silver : position === 3 ? styles.brown : styles.black]}>{position}</Text>
+                    <Text style={[styles.position, position === 1 ? styles.gold : position === 2 ? styles.silver : position === 3 ? styles.brown : styles.black]}>{position}</Text>
                     <IconLabel source={user} label={`${data.lastname} ${data.firstname}`}/>
                     <Text style={styles.date}> N° {data.UserRaces.bibNumber}</Text>
-                    <Text style={styles.desc}>{`${data.UserRaces.time_achieved}"`} </Text>
+                    <Text style={styles.desc}>{`${data.UserRaces.time_achieved}`} </Text>
                 </View>
-            </View>
         )
     }
 

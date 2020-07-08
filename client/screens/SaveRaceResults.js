@@ -23,15 +23,18 @@ class SaveRaceResults extends Component {
     }
 
     async submitForm(values,userId) {
+        values.time_achieved = parseFloat(values.time_achieved)
         console.log(values)
         let response = await RacesService.sendResult(this.state.race.id, userId, values);
     }
 
     render() {
+        console.log(this.state.race.Runners)
         return (
-            <ScrollView>
+            <ScrollView style={styles.container}>
                 <Title title={`Entrez/Modifiez les résultats de ${this.state.race.name}`}/>
                 {this.state.race.Runners.map(runner => {
+                    console.log(runner.UserRaces)
                     return (
                         <View style={styles.blocForm}>
                             <Text>{`${runner.lastname} ${runner.firstname}`}</Text>
@@ -49,7 +52,7 @@ class SaveRaceResults extends Component {
                                                    placeholder={'Dossard de course'}
                                                    onChangeText={handleChange('bibNumber')}/>
                                         <UserInput errors={errors.time_achieved} source={runnerLogo}
-                                                   name={"time_achieved"} defaultValue={runner.UserRaces.time_achieved}
+                                                   name={"time_achieved"} defaultValue={String(runner.UserRaces.time_achieved)}
                                                    value={values.time_achieved} placeholder={'Temps réalisé'}
                                                    onChangeText={handleChange('time_achieved')}/>
                                         <SubmitButton title={"Valider"} onPress={handleSubmit}/>
@@ -65,6 +68,9 @@ class SaveRaceResults extends Component {
 }
 
 const styles = StyleSheet.create({
+    container:{
+        marginTop:25
+    },
     blocForm: {
         margin: 10
     }

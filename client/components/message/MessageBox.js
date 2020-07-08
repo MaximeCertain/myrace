@@ -14,7 +14,7 @@ class MessageBox extends Component {
         let {description, User, createdAt} = (this.props.data)
         return (
             <View style={styles.container}>
-                <IconLabel source={user} label={`${User.lastname} ${User.firstname}`}/>
+                <IconLabel source={user} label={User != null &&`${User.lastname} ${User.firstname}`}/>
                 <Text style={styles.date}>le {Helpers.getDate(createdAt)}</Text>
                 <Text style={styles.desc}>{description}</Text>
             </View>

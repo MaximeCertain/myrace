@@ -27,6 +27,7 @@ class UserAdminBox extends Component {
 
 
     render() {
+        console.log(this.props)
         let {data, navigation} = this.props
         return (
             <View>

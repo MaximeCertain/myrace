@@ -68,7 +68,6 @@ class RacesService extends ConfigApi {
             body: JSON.stringify(body)
         };
         let call = await fetch(`${ConfigApi.baseUrl()}races/${body.id}`, init);
-        console.log(call)
         let response = await call.json();
         if (response.error && response.error === 'Invalid API Authentication')
             console.log(response.error)

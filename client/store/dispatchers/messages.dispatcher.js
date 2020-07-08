@@ -18,9 +18,10 @@ export function fetchSendMessage(body, raceId, type) {
             console.log(x)*/
 
             if (message) {
-                (dispatch(fetchMessageFormSuccess(message)));
-                console.log(message)
-            }
+                message.raceId = raceId
+               await ((dispatch(fetchMessageFormSuccess(message))));
+            }                console.log(store.getState())
+
         } catch (e) {
             dispatch(fetchMessageFormFailure(e));
         }

@@ -22,8 +22,8 @@ class EditAdminUser extends Component {
 
     }
    async update(values) {
+       values.age = parseFloat(values.age)
        await this.props.updateProfileAdmin(values);
-
        this.props.navigation.navigate('ListUser');
     }
 
@@ -54,7 +54,7 @@ class EditAdminUser extends Component {
                                        value={values.firstname} defaultValue={user.firstname}
                                        placeholder={'Prénom'} onChangeText={handleChange('firstname')}/>
                             <UserInput errors={errors.age} source={age} name={"age"} value={values.age}
-                                       keyboardType={"numeric"} defaultValue={user.age}
+                                       keyboardType={"numeric"} defaultValue={String(user.age)}
                                        placeholder={'Age'} onChangeText={handleChange('age')}/>
                             <UserInput errors={errors.description} source={description} name={"description"}
                                        value={values.email} multiline={true} defaultValue={user.description}

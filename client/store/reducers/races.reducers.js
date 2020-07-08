@@ -75,9 +75,12 @@ export default function race(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                races: state.races.map(race =>
-                    race.id === action.payload.message.id ? {...race, Messages: action.payload.message} : race
-                )
+                races: state.races.map(race => {
+                    if (race.id == action.payload.message.RaceId) {
+                        race.Messages = [... race.Messages,action.payload.message]
+                    }
+                    return race;
+                })
             };
         default:
             // ALWAYS have a default case in a reducer

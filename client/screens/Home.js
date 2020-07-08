@@ -15,13 +15,16 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            races: this.props.races,
+            races: null,
             filtering: false
         }
     }
 
     async componentDidMount() {
-        await this.props.getRaces()
+        let r = await this.props.getRaces()
+        this.setState({
+            races: r
+        })
     }
 
     /**
@@ -29,7 +32,7 @@ class Home extends Component {
      */
     filter() {
         this.setState({filtering: !this.state.filtering})
-        if(this.state.filtering){
+        if (this.state.filtering) {
             this.setState({
                 races: this.props.races
             })
@@ -54,7 +57,7 @@ class Home extends Component {
             <ScrollView style={styles.container}>
                 <View style={styles.header}>
                     {this.state.filtering ? <FilterRace launchFilter={this.filterRaces}/> :
-                        <Title color={color} title={"Prochaines courses"}/>}
+                        <Title color={color} title={"Toutes les courses"}/>}
                     <TouchableHighlight onPress={() => this.filter()} underlayColor='#042417'>
                         <View>
                             <Icon
@@ -66,9 +69,8 @@ class Home extends Component {
                     </TouchableHighlight>
 
                 </View>
-                {races === null && <Title title={'null'}/>}
                 <FlatList
-                    data={this.state.races} backgroundColor={"#FFF"}
+                    data={typeof races !== "undefined" ? races : this.props.races} backgroundColor={"#FFF"}
                     keyExtractor={item => item.id}
                     renderItem={({item}) =>
                         <RaceItem navigation={navigation}
@@ -85,10 +87,10 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         textAlign: "center",
         backgroundColor: "#e7e6e6",
-        marginTop:25
+        marginTop: 25
     },
     header: {
-        flex:1,
+        flex: 1,
         flexDirection: "row"
     }
 })

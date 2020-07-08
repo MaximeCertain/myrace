@@ -18,3 +18,18 @@ Une fois la course déroulée, les résultats sont publiés par l'organisateur d
 Les utilisateurs peuvent discuter de leurs résultats ...
 
 Sur son profil, un utilisateur a des statistiques détaillées sur ses performances .
+
+#Install
+
+<p>1 => entrez vos identifiants MySql (username et password) dans l'objet "developpement" (/server/config/config.json) </p>
+
+<p>2 => Créer la base de données My Race (myrace) avec votre utilisateur mysql
+  => "CREATE DATABASE myrace" PUIS lancer le script SQL situé dans /server/sql/database.sql </p>
+  
+  <p>3=> Renseigner votre adresse IP dans la fonction baseUrl() de "/client/services/api/config.json"</p>
+  
+<p>4 => cd /server</p>
+<p> npm start</p>
+
+<p>5 => cd /client</p>
+<p> npm start</p>

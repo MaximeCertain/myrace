@@ -3,6 +3,8 @@ import {Text, StyleSheet, FlatList, ScrollView} from 'react-native';
 import RaceItem from "./RaceItem";
 import MessageBox from "../message/MessageBox";
 import MessageForm from "../message/MessageForm";
+import {fetchRaces} from "../../store/dispatchers/races.dispatcher";
+import {connect} from "react-redux";
 
 class MessagesRace extends Component {
     constructor(props) {
@@ -12,7 +14,7 @@ class MessagesRace extends Component {
     render() {
         let {messages, raceId, type} = this.props
         let messagesPrinted = messages.filter(m => {
-            return (type === "result" ? m.TypeMessageId = 2 : m.TypeMessageId=1)
+            return (type === "result" ? m.TypeMessageId == 2 : m.TypeMessageId==1)
         });
         return (
             <ScrollView style={styles.container}>

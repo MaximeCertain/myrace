@@ -43,7 +43,7 @@ class RaceItem extends Component {
             <TouchableOpacity onPress={() => this.details()}>
                 <View style={styles.container}>
                     {validatedAdmin && <Text style={styles.noRace}>{"La course n'aura pas lieu !"}</Text>}
-                    {User.id === this.props.userId
+                    {(this.props.userId && User.id === this.props.userId)
                     &&
                     <NavigateButton onPress={() => this.props.navigation.navigate("SaveRaceResults", {race: this.props.data})}
                                     title={"Votre Course s'est déroulée ! Enregister les résultats"}/>
