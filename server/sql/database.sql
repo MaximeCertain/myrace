@@ -36,7 +36,7 @@ CREATE TABLE `Messages` (
   `description` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Déchargement des données de la table `Messages`
@@ -60,14 +60,14 @@ CREATE TABLE `Races` (
   `kilometers` float DEFAULT NULL,
   `elevation` float DEFAULT NULL,
   `max_participants` int DEFAULT NULL,
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `description` text null,
   `UserId` int NOT NULL,
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `validatedAdmin` tinyint(1) DEFAULT '0',
   `reasonAdmin` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Déchargement des données de la table `Races`
@@ -87,7 +87,7 @@ INSERT INTO `Races` (`id`, `name`, `start`, `finish`, `kilometers`, `elevation`,
 
 CREATE TABLE `SequelizeMeta` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ;
 
 --
 -- Déchargement des données de la table `SequelizeMeta`
@@ -113,7 +113,7 @@ CREATE TABLE `TypeMessages` (
   `code` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Déchargement des données de la table `TypeMessages`
@@ -135,7 +135,7 @@ CREATE TABLE `TypeUsers` (
   `code` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Déchargement des données de la table `TypeUsers`
@@ -159,7 +159,7 @@ CREATE TABLE `UserRaces` (
   `RaceId` int NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Déchargement des données de la table `UserRaces`
@@ -195,7 +195,7 @@ CREATE TABLE `Users` (
   `TypeUserId` int NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 --
 -- Déchargement des données de la table `Users`

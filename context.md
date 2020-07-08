@@ -29,7 +29,13 @@ Sur son profil, un utilisateur a des statistiques détaillées sur ses performan
   <p>3=> Renseigner votre adresse IP dans la fonction baseUrl() de "/client/services/api/config.json"</p>
   
 <p>4 => cd /server</p>
+<p>npm i</p>
 <p> npm start</p>
 
 <p>5 => cd /client</p>
+<p>npm install --global expo-cli</p>
+<p>npm i</p>
 <p> npm start</p>
+
+<p>COmpte admin : romain@admin.fr</p>
+<p>Mdp : 19</p>
