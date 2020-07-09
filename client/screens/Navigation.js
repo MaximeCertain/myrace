@@ -22,7 +22,7 @@ const TabNavigator = createBottomTabNavigator({
     Home: {
         screen: Home,
         navigationOptions: () => ({
-            tabBarIcon: (tintColor) => (
+            tabBarIcon: ({tintColor}) => (
                 <Icon name={"meetup"}
                       color={tintColor}
                       size={24}/>
@@ -31,7 +31,7 @@ const TabNavigator = createBottomTabNavigator({
     }, Registrations: {
         screen: Registrations,
         navigationOptions: () => ({
-            tabBarIcon: (tintColor) => (
+            tabBarIcon: ({tintColor}) => (
                 <Icon name={"globe"}
                       color={tintColor}
                       size={24}/>
@@ -40,7 +40,7 @@ const TabNavigator = createBottomTabNavigator({
     }, Results: {
         screen: Results,
         navigationOptions: () => ({
-            tabBarIcon: (tintColor) => (
+            tabBarIcon: ({tintColor}) => (
                 <Icon name={"info-circle"}
                       color={tintColor}
                       size={24}/>
@@ -50,7 +50,7 @@ const TabNavigator = createBottomTabNavigator({
     Profile: {
         screen: Profile,
         navigationOptions: () => ({
-            tabBarIcon: (tintColor) => (
+            tabBarIcon: ({tintColor}) => (
                 <Icon name={"user-circle"}
                       color={tintColor}
                       size={24}/>

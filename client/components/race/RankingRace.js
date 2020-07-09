@@ -11,22 +11,25 @@ class RankingRace extends Component {
         }
     }
     componentDidMount() {
-        let r = this.state.runners.sort(function (a, b) {
+   /*     let r = this.state.runners.sort(function (a, b) {
             return (a.UserRaces.time_achieved > b.UserRaces.time_achieved) ? 1 : ((b.UserRaces.time_achieved > a.UserRaces.time_achieved) ? -1 : 0)
         })
         this.setState({
             runners: r
-        })
+        })*/
     }
 
     render() {
-        let {runners} = this.state
+        let {Runners} = this.props
 
 
+        Runners.sort(function (a, b) {
+            return (a.UserRaces.time_achieved > b.UserRaces.time_achieved) ? 1 : ((b.UserRaces.time_achieved > a.UserRaces.time_achieved) ? -1 : 0);
+        });
         return (
             <View>
                     <FlatList
-                        data={runners} backgroundColor={"#FFF"}
+                        data={Runners} backgroundColor={"#FFF"}
                         keyExtractor={item => item.id}
                         renderItem={({item, index}) =>
                             <UserResultBox

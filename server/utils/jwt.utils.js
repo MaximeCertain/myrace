@@ -17,7 +17,7 @@ class JwtUtils {
             userId: userData.id,
             isAdmin: isAdmin
         }, JWT_SIGN_SECRET, {
-            expiresIn: '2h'
+            expiresIn: '5h'
         })
     }
 
