@@ -1,0 +1,64 @@
+
+    cONTENEUR => STOPER
+docker stop ea3ecb819537
+docker rm  ea3ecb819537
+
+
+
+ docker build -t serveur .
+
+docker container run --name serveur -p 5000:80 serveur
+
+
+# Get container ID
+$ docker ps
+
+# Print app output
+$ docker logs <container id>
+
+docker build -t <conteneur> .
+docker run -p 49160:8080 -d server
+ docker exec -it 4469d3071a63 bash
+=> localhost:449160/hello
+
+docker run -it -p 49160:8080 -v $(pwd):/usr/src/app server
+
+-v => utilisez les bvolumes pour persister et maj le dcoker grâce aux changements locaux
+
+
+
+
+=========================Docker-compose==========================================
+Procedure restart docker-compose
+
+    Stop the container(s) using the following command:
+
+    docker-compose down
+
+    Delete all containers using the following command:
+
+    docker rm -f $(docker ps -a -q)
+
+    Delete all volumes using the following command:
+
+    docker volume rm $(docker volume ls -q)
+
+    Restart the containers using the following command:
+
+    docker-compose up -d
+
+Mentionner les ports ds un container de docker-compose =>
+    ports:
+      - "49161:8081"
+        PortsurMachineHote:PortSUrConteneur
+
+======================COnteneur mysql ========================================
+entrer mysql commande =>   mysql -u node -p myrace
+
+
+
+
+
+/* TODO */
+rEVOIR APPEL VOLUMES VAr .env + adresse api
+lancer direct expo web au compose up

@@ -13,7 +13,7 @@ server.use('/api', router);
 
 server.get('/hello', function (req, res) {
     res.setHeader('Content-Type', 'text/html');
-    res.status(200).send('<h1>Bonjour</h1>')
+    res.status(200).send('<h1>ezzzdssz</h1>')
 
 })
 const port = 8080;

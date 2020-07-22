@@ -3,7 +3,8 @@
     "username": "node",
     "password": "node",
     "database": "myrace",
-    "host": "127.0.0.1",
+    "host": "mydb",
+    "port" : "3306",
     "dialect": "mysql",
     "operatorsAliases": false
   },

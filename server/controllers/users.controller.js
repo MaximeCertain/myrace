@@ -7,6 +7,7 @@ import {Op} from "sequelize";
 class UserController extends BaseController {
 
     static async list(req, res) {
+        console.log("coucou");
         let status = 200;
         let body = [];
         try {

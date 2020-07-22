@@ -1,0 +1,45 @@
+version: '3'
+services:
+  db:
+    build: ./server/sql
+    container_name: mydb
+    ports:
+      - "3307:3306"
+    environment:
+      -MYSQL_DATABASE: ${MYSQL_DATABASE}
+      -MYSQL_USER: ${MYSQL_USER}
+      -MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      -MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    env_file:
+      - ./.env
+  node:
+    build: ./server
+    container_name: node
+    env_file:
+      - ./.env
+    ports:
+      - "49160:8080"
+    restart:  always
+    volumes:
+      - "./server/:/usr/src/app/"
+    depends_on:
+      - db
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 5428:80
+    links:
+      - db:db
+    depends_on:
+      - db
+  react:
+    build: ./client
+    container_name: react
+    ports:
+      - "49161:8081"
+    restart:  always
+    volumes:
+    - "./client/:/usr/src/app/"
+    depends_on:
+      - node
